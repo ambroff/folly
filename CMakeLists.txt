@@ -16,8 +16,6 @@ include(HunterGate)
 HunterGate(
     URL "https://github.com/ambroff/hunter/archive/54ac26071920bd3b41349e99be60fc8709a07aa7.zip"
     SHA1 "edc91a2729296b40d58eb80c89dcd5b5b3dd1d87"
-    LOCAL
-    PRIVATE_PACKAGES "${CMAKE_SOURCE_DIR}/cmake/Hunter/packages"
 )
 
 # package information
