@@ -12,6 +12,14 @@ endif()
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/CMake" ${CMAKE_MODULE_PATH})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
+include(HunterGate)
+HunterGate(
+    URL "https://github.com/ambroff/hunter/archive/54ac26071920bd3b41349e99be60fc8709a07aa7.zip"
+    SHA1 "edc91a2729296b40d58eb80c89dcd5b5b3dd1d87"
+    LOCAL
+    PRIVATE_PACKAGES "${CMAKE_SOURCE_DIR}/cmake/Hunter/packages"
+)
+
 # package information
 set(PACKAGE_NAME      "folly")
 set(PACKAGE_VERSION   "0.58.0-dev")
@@ -22,7 +30,7 @@ set(PACKAGE_BUGREPORT "https://github.com/facebook/folly/issues")
 # 150+ tests in the root folder anyone? No? I didn't think so.
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-project(${PACKAGE_NAME} CXX C)
+project(${PACKAGE_NAME})
 
 set(INCLUDE_INSTALL_DIR include CACHE STRING
     "The subdirectory where header files should be installed")
@@ -338,7 +346,8 @@ option(BUILD_BROKEN_TESTS "If enabled, compile tests that are known to be broken
 option(BUILD_HANGING_TESTS "If enabled, compile tests that are known to hang." OFF)
 option(BUILD_SLOW_TESTS "If enabled, compile tests that take a while to run in debug mode." OFF)
 if (BUILD_TESTS)
-  find_package(GMock MODULE REQUIRED)
+  hunter_add_package(GTest)
+  find_package(GMock CONFIG REQUIRED)
   include(GoogleTest OPTIONAL RESULT_VARIABLE HAVE_CMAKE_GTEST)
   enable_testing()
 
