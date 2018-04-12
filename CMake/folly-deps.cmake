@@ -122,7 +122,7 @@ if (LZ4_FOUND)
 endif()
 
 hunter_add_package(zstd)
-find_package(zstd)
+find_package(zstd REQUIRED)
 set(FOLLY_HAVE_LIBZSTD ${ZSTD_FOUND})
 if(ZSTD_FOUND)
   list(APPEND FOLLY_LINK_LIBRARIES zstd::zstd)
