@@ -69,18 +69,9 @@ class AtForkList {
 
  private:
   AtForkList() {
-#if FOLLY_HAVE_PTHREAD_ATFORK
     int ret = pthread_atfork(
         &AtForkList::prepare, &AtForkList::parent, &AtForkList::child);
     checkPosixError(ret, "pthread_atfork failed");
-#elif !__ANDROID__ && !defined(_MSC_VER)
-// pthread_atfork is not part of the Android NDK at least as of n9d. If
-// something is trying to call native fork() directly at all with Android's
-// process management model, this is probably the least of the problems.
-//
-// But otherwise, this is a problem.
-#warning pthread_atfork unavailable
-#endif
   }
 };
 } // namespace
