@@ -18,9 +18,9 @@ find_package(Boost 1.51.0 MODULE
 list(APPEND FOLLY_LINK_LIBRARIES ${Boost_LIBRARIES})
 list(APPEND FOLLY_INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIRS})
 
-find_package(DoubleConversion MODULE REQUIRED)
-list(APPEND FOLLY_LINK_LIBRARIES ${DOUBLE_CONVERSION_LIBRARY})
-list(APPEND FOLLY_INCLUDE_DIRECTORIES ${DOUBLE_CONVERSION_INCLUDE_DIR})
+hunter_add_package(double-conversion)
+find_package(double-conversion CONFIG REQUIRED)
+list(APPEND FOLLY_LINK_LIBRARIES double-conversion::double-conversion)
 
 set(FOLLY_HAVE_LIBGFLAGS OFF)
 
@@ -121,18 +121,18 @@ if (LZ4_FOUND)
   list(APPEND FOLLY_LINK_LIBRARIES ${LZ4_LIBRARY})
 endif()
 
-find_package(Zstd MODULE)
+hunter_add_package(zstd)
+find_package(zstd)
 set(FOLLY_HAVE_LIBZSTD ${ZSTD_FOUND})
 if(ZSTD_FOUND)
-  list(APPEND FOLLY_INCLUDE_DIRECTORIES ${ZSTD_INCLUDE_DIR})
-  list(APPEND FOLLY_LINK_LIBRARIES ${ZSTD_LIBRARY})
+  list(APPEND FOLLY_LINK_LIBRARIES zstd::zstd)
 endif()
 
-find_package(Snappy MODULE)
+hunter_add_package(Snappy)
+find_package(Snappy CONFIG)
 set(FOLLY_HAVE_LIBSNAPPY ${SNAPPY_FOUND})
 if (SNAPPY_FOUND)
-  list(APPEND FOLLY_INCLUDE_DIRECTORIES ${SNAPPY_INCLUDE_DIR})
-  list(APPEND FOLLY_LINK_LIBRARIES ${SNAPPY_LIBRARY})
+  list(APPEND FOLLY_LINK_LIBRARIES Snappy::snappy)
 endif()
 
 find_package(LibDwarf)
