@@ -17,7 +17,7 @@
 #include <folly/portability/String.h>
 
 #if !FOLLY_HAVE_MEMRCHR
-extern "C" void* memrchr(const void* s, int c, size_t n) {
+extern "C" void* memrchr(const void* s, int c, size_t n) throw() {
   for (auto p = ((const char*)s) + n - 1; p >= (const char*)s; p--) {
     if (*p == (char)c) {
       return (void*)p;

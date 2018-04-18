@@ -14,8 +14,8 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 include(HunterGate)
 HunterGate(
-    URL "https://github.com/ambroff/hunter/archive/54ac26071920bd3b41349e99be60fc8709a07aa7.zip"
-    SHA1 "edc91a2729296b40d58eb80c89dcd5b5b3dd1d87"
+    URL "https://github.com/ambroff/hunter/archive/45d24531d4d7159a62e91f45cb32e24b21c7133b.zip"
+    SHA1 "c0a8663ede5593d281bb50d5884789f9f1a9ea9f"
 )
 
 # package information

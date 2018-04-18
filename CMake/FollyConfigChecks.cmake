@@ -59,9 +59,10 @@ check_symbol_exists(pthread_atfork pthread.h FOLLY_HAVE_PTHREAD_ATFORK)
 # Unfortunately check_symbol_exists() does not work for memrchr():
 # it fails complaining that there are multiple overloaded versions of memrchr()
 check_function_exists(memrchr FOLLY_HAVE_MEMRCHR)
-check_symbol_exists(preadv sys/uio.h FOLLY_HAVE_PREADV)
-check_symbol_exists(pwritev sys/uio.h FOLLY_HAVE_PWRITEV)
-check_symbol_exists(clock_gettime time.h FOLLY_HAVE_CLOCK_GETTIME)
+check_function_exists(preadv sys/uio.h FOLLY_HAVE_PREADV)
+check_function_exists(pwritev sys/uio.h FOLLY_HAVE_PWRITEV)
+check_function_exists(clock_gettime time.h FOLLY_HAVE_CLOCK_GETTIME)
+set(FOLLY_HAVE_CLOCK_GETTIME ON)
 
 check_function_exists(
   cplus_demangle_v3_callback

@@ -13,7 +13,6 @@ function(apply_folly_compile_options_to_target THETARGET)
   target_compile_options(${THETARGET}
     PRIVATE
       -g
-      -std=gnu++14
       -finput-charset=UTF-8
       -fsigned-char
       -Werror
@@ -27,6 +26,7 @@ function(apply_folly_compile_options_to_target THETARGET)
       -Wunused-label
       -Wunused-result
       -Wnon-virtual-dtor
+      -Wno-missing-exception-spec
       ${FOLLY_CXX_FLAGS}
   )
 endfunction()
