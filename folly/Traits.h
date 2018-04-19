@@ -529,6 +529,10 @@ struct StrictDisjunction
  * although that is not guaranteed by the standard.
  */
 
+#if __APPLE__
+# include <list>
+# include <deque>
+#else
 FOLLY_NAMESPACE_STD_BEGIN
 
 template <class T, class U>
@@ -558,6 +562,7 @@ template <class T>
   class shared_ptr;
 
 FOLLY_NAMESPACE_STD_END
+#endif
 
 namespace folly {
 
