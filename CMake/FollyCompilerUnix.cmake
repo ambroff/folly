@@ -5,7 +5,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_COMMON} -O3")
 if (APPLE)
   list(APPEND CMAKE_REQUIRED_FLAGS -std=c++17)
 else()
-  list(APPEND CMAKE_REQUIRED_FLAGS -std=c++14)
+  list(APPEND CMAKE_REQUIRED_FLAGS -std=gnu++14)
 endif()
 
 function(apply_folly_compile_options_to_target THETARGET)
