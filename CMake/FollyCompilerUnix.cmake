@@ -13,7 +13,7 @@ function(apply_folly_compile_options_to_target THETARGET)
   target_compile_options(${THETARGET}
     PRIVATE
       -g
-      -std=c++17
+      -std=c++14
       -finput-charset=UTF-8
       -fsigned-char
       -Werror
