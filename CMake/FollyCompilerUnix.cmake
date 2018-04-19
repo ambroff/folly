@@ -2,7 +2,12 @@ set(CMAKE_CXX_FLAGS_COMMON "-g -Wall -Wextra")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_COMMON}")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_COMMON} -O3")
 
-list(APPEND CMAKE_REQUIRED_FLAGS -std=c++17)
+if (APPLE)
+  list(APPEND CMAKE_REQUIRED_FLAGS -std=c++17)
+else()
+  list(APPEND CMAKE_REQUIRED_FLAGS -std=c++14)
+endif()
+
 function(apply_folly_compile_options_to_target THETARGET)
   if (APPLE)
     target_compile_definitions(${THETARGET} PRIVATE
@@ -18,6 +23,7 @@ function(apply_folly_compile_options_to_target THETARGET)
     target_compile_options(${THETARGET}
       PRIVATE
         -g
+        -std=gnu++14
         -finput-charset=UTF-8
         -fsigned-char
         -Werror
