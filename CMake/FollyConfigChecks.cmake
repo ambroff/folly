@@ -2,6 +2,7 @@ include(CheckCXXSourceCompiles)
 include(CheckCXXSourceRuns)
 include(CheckFunctionExists)
 include(CheckIncludeFileCXX)
+include(CheckLibraryExists)
 include(CheckSymbolExists)
 include(CheckTypeSize)
 include(CheckCXXCompilerFlag)
@@ -58,11 +59,27 @@ check_symbol_exists(pthread_atfork pthread.h FOLLY_HAVE_PTHREAD_ATFORK)
 
 # Unfortunately check_symbol_exists() does not work for memrchr():
 # it fails complaining that there are multiple overloaded versions of memrchr()
-check_function_exists(memrchr FOLLY_HAVE_MEMRCHR)
-check_function_exists(preadv sys/uio.h FOLLY_HAVE_PREADV)
-check_function_exists(pwritev sys/uio.h FOLLY_HAVE_PWRITEV)
-check_function_exists(clock_gettime time.h FOLLY_HAVE_CLOCK_GETTIME)
-set(FOLLY_HAVE_CLOCK_GETTIME ON)
+check_cxx_source_compiles("
+  #include <string.h>;
+  int main() {
+    void *p;
+    memrchr(p, 0, 0);
+    return 0;
+  }"
+  FOLLY_HAVE_MEMRCHR
+  )
+
+check_symbol_exists(preadv sys/uio.h FOLLY_HAVE_PREADV)
+check_symbol_exists(pwritev sys/uio.h FOLLY_HAVE_PWRITEV)
+
+# clock_gettime(3) lives in librt, so we can't use check_symbol_exists()
+# to find it. We have to clobber CMAKE_REQUIRED_FLAGS here because this
+# is set elsewhere in the build with C++ build options, but
+# check_library_exists() invokes a C compiler.
+set(__CMAKE_REQUIRED_FLAGS_BACKUP "${CMAKE_REQUIRED_FLAGS}")
+set(CMAKE_REQUIRED_FLAGS)
+check_library_exists(rt clock_gettime "time.h" FOLLY_HAVE_CLOCK_GETTIME)
+set(CMAKE_REQUIRED_FLAGS "${__CMAKE_REQUIRED_FLAGS_BACKUP}")
 
 check_function_exists(
   cplus_demangle_v3_callback
