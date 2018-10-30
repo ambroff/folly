@@ -26,7 +26,7 @@ function(apply_folly_compile_options_to_target THETARGET)
         -std=gnu++14
         -finput-charset=UTF-8
         -fsigned-char
-        -Werror
+        -Wno-error
         -Wall
         -Wno-deprecated
         -Wdeprecated-declarations
